@@ -1,0 +1,21 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: periodic-process
+  namespace: gitops-review
+spec:
+  jobTemplate:
+    metadata:
+      name: periodic-process
+    spec:
+      template:
+        spec:
+          containers:
+            - command:
+                - echo
+                - hello
+              image: registry.ocp4.example.com:8443/ubi9/ubi
+              name: periodic-process
+          restartPolicy: OnFailure
+  schedule: '* * * * *'
